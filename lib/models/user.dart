@@ -2,7 +2,7 @@ class User {
   String username;
   String passcode;
   String course;
-  String targetProfile;
+  String target;
 
-  User({this.username, this.passcode, this.course, this.targetProfile});
+  User({this.username, this.passcode, this.course, this.target});
 }
