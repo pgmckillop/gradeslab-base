@@ -10,3 +10,9 @@ const kPageHeaderTextStyle = TextStyle(
   fontWeight: FontWeight.bold,
   color: Colors.blue,
 );
+
+const kAppBarTextStyle = TextStyle(
+  color: Colors.blue,
+  fontWeight: FontWeight.bold,
+  letterSpacing: 1.0,
+);

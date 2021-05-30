@@ -16,14 +16,15 @@ class UnitGradeAdapter extends TypeAdapter<UnitGrade> {
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return UnitGrade()
-      ..unitId = fields[0] as String
-      ..unitName = fields[1] as String
-      ..ac1grade = fields[2] as String
-      ..ac2grade = fields[3] as String
-      ..ac3grade = fields[4] as String
-      ..ac4grade = fields[5] as String
-      ..ac5grade = fields[6] as String;
+    return UnitGrade(
+      unitId: fields[0] as String,
+      unitName: fields[1] as String,
+      ac1grade: fields[2] as String,
+      ac2grade: fields[3] as String,
+      ac3grade: fields[4] as String,
+      ac4grade: fields[5] as String,
+      ac5grade: fields[6] as String,
+    );
   }
 
   @override

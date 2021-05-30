@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:grades_lab_hive_getx/controllers/user_controller.dart';
 import '../widgets/dropdown_wrapper.dart';
 import '../widgets/dropdown_control.dart';
 
@@ -13,18 +14,25 @@ import '../models/user.dart';
 
 import '../uidata/course_data.dart';
 
+import '../utils/default_data.dart';
+
 class PageSettings extends StatefulWidget {
   @override
   _PageSettingsState createState() => _PageSettingsState();
 }
 
 class _PageSettingsState extends State<PageSettings> {
+  var statusController = Get.find<StatusController>();
+  var userController = Get.find<UserDataController>();
+
   String _chosenCourse;
   String _chosenProfile;
   String _username = '';
-  String _passcode = '';
+
+  //String _passcode = '';
 
   bool isPasscodeVisible = false;
+  var firstUse = false;
 
   // -- TextField Controllers
   final usernameController = TextEditingController();
@@ -36,27 +44,52 @@ class _PageSettingsState extends State<PageSettings> {
   StatusManager statusManager = StatusManager();
   UserManager userManager = UserManager();
 
-  StatusController statusController = Get.find<StatusController>();
-
   @override
   void initState() {
     usernameController.addListener(() => setState(() {}));
     usernameController.text = storage.read('username').toString() ?? '';
     _username = storage.read('username').toString() ?? '';
+
+    passcodeController.addListener(() => setState(() {}));
     passcodeController.text = storage.read('passcode').toString() ?? '';
-    //_chosenCourse = storage.read('course').toString() ?? ''; // -- THIS CAUSES THE DROPDOWN CRASH
-    //_chosenProfile = storage.read('target').toString() ?? ''; //-- DITTO
+    _chosenCourse = storage.read('course').toString() ?? '';
+    _chosenProfile = storage.read('target').toString() ?? '';
+
+    // if (!firstUse) {
+    //   _chosenCourse = storage.read('course').toString() ?? ''; // -- THIS CAUSES THE DROPDOWN CRASH
+    //   _chosenProfile = storage.read('target').toString() ?? ''; //-- DITTO
+    // }
 
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    // -- variable for action response to store default grades
+    firstUse = statusController.status.toString() == 'unregistered';
+
+    DefaultData defaultDataManager = DefaultData();
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
         brightness: Brightness.light,
         backgroundColor: Colors.white,
+        leading: Builder(
+          builder: (BuildContext context) {
+            return firstUse
+                ? Container()
+                : IconButton(
+                    icon: const Icon(
+                      Icons.home,
+                      color: Colors.blue,
+                    ),
+                    onPressed: () {
+                      Get.toNamed('/switchboard');
+                    },
+                  );
+          },
+        ),
         title: Text(
           'SETTINGS',
           style: TextStyle(
@@ -65,9 +98,26 @@ class _PageSettingsState extends State<PageSettings> {
             letterSpacing: 1.0,
           ),
         ),
+        // actions: [
+        //   IconButton(
+        //     icon: Icon(Icons.transform),
+        //     color: Theme.of(context).primaryColor,
+        //     onPressed: () {
+        //       statusManager.toggleStatus();
+        //       Get.snackbar(
+        //         'Status',
+        //         'Status set to ${statusController.status.toString() ?? 'Not set'}',
+        //         backgroundColor: Colors.green,
+        //         colorText: Colors.black,
+        //         snackPosition: SnackPosition.BOTTOM,
+        //       );
+        //     },
+        //   ),
+        // ],
       ),
       body: Center(
         child: SingleChildScrollView(
+          //reverse: true,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -110,13 +160,23 @@ class _PageSettingsState extends State<PageSettings> {
                 child: GestureDetector(
                   onTap: () {
                     statusManager.storeStatus('registered');
+                    // -- Harvest User object data
+                    _user.username = usernameController.text ?? 'Not set';
+                    _user.passcode = passcodeController.text ?? 'Not set';
+                    _user.course = _chosenCourse ?? '2 Year Extended Diploma 1080 Hours';
+                    _user.target = _chosenProfile ?? 'PPP';
+                    // -- Persist the user object data
+                    userManager.storeUser(_user);
+
                     Get.snackbar(
                       'Status',
-                      'Status set to ${statusController.status.toString()}',
+                      'Status set to ${statusController.status.toString() ?? 'Not set'}',
                       backgroundColor: Colors.green,
                       colorText: Colors.black,
                       snackPosition: SnackPosition.BOTTOM,
                     );
+
+                    Get.toNamed('/switchboard');
                   },
                   child: Container(
                     margin: EdgeInsets.symmetric(horizontal: 60.0),
@@ -127,7 +187,7 @@ class _PageSettingsState extends State<PageSettings> {
                       borderRadius: BorderRadius.circular(15.0),
                     ),
                     child: Text(
-                      'Submit Profile Data',
+                      'Store Profile Data',
                       style: TextStyle(
                         fontSize: 18.0,
                         color: Colors.white,
@@ -144,7 +204,24 @@ class _PageSettingsState extends State<PageSettings> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 5.0),
                 child: GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    Get.defaultDialog(
+                      title: 'Are you sure?',
+                      content: Text('This action will clear all credential and grades stored data'),
+                      backgroundColor: Colors.yellow,
+                      textCancel: 'No',
+                      textConfirm: 'Yes',
+                      confirmTextColor: Colors.white,
+                      barrierDismissible: true,
+                      onCancel: () {},
+                      onConfirm: () {
+                        userManager.clearUser();
+                        //defaultDataManager.setDefaultUserData();
+                        defaultDataManager.setDefaultGradesData();
+                        Get.toNamed('/');
+                      },
+                    );
+                  },
                   child: Container(
                     margin: EdgeInsets.symmetric(horizontal: 60.0),
                     alignment: Alignment.center,
@@ -154,7 +231,7 @@ class _PageSettingsState extends State<PageSettings> {
                       borderRadius: BorderRadius.circular(15.0),
                     ),
                     child: Text(
-                      'Reset profile data',
+                      'Reset ALL data',
                       style: TextStyle(
                         fontSize: 18.0,
                         color: Colors.white,
@@ -173,42 +250,42 @@ class _PageSettingsState extends State<PageSettings> {
   }
 
   Widget buildCourseDropdown() => Container(
-        child: DropdownWrapper(
-          acLabel: 'Course',
-          flexValue1: 2,
-          flexValueChild: 5,
-          wrapperChild: DropdownControl(
-            hintText: 'Choose your course',
-            valueSetter: _chosenCourse,
-            items: getCourseDropdownItems(),
-            onChange: (newValue) {
-              setState(() {
-                this._chosenCourse = newValue;
-              });
-            },
-          ),
-        ),
-      );
+    child: DropdownWrapper(
+      acLabel: 'Course',
+      flexValue1: 2,
+      flexValueChild: 5,
+      wrapperChild: DropdownControl(
+        hintText: 'Choose your course',
+        valueSetter: _chosenCourse,
+        items: getCourseDropdownItems(),
+        onChange: (newValue) {
+          setState(() {
+            this._chosenCourse = newValue;
+          });
+        },
+      ),
+    ),
+  );
 
   // -- custom controls
 
   Widget buildProfileDropdown() => Container(
-        child: DropdownWrapper(
-          acLabel: 'Target',
-          flexValue1: 2,
-          flexValueChild: 5,
-          wrapperChild: DropdownControl(
-            hintText: 'Choose your target profile',
-            valueSetter: _chosenProfile,
-            items: getProfileDropdownItems(),
-            onChange: (newValue) {
-              setState(() {
-                this._chosenProfile = newValue;
-              });
-            },
-          ),
-        ),
-      );
+    child: DropdownWrapper(
+      acLabel: 'Target',
+      flexValue1: 2,
+      flexValueChild: 5,
+      wrapperChild: DropdownControl(
+        hintText: 'Choose your target profile',
+        valueSetter: _chosenProfile,
+        items: getProfileDropdownItems(),
+        onChange: (newValue) {
+          setState(() {
+            this._chosenProfile = newValue;
+          });
+        },
+      ),
+    ),
+  );
 
   Widget buildUsernameTextField() => Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 5.0),
@@ -222,9 +299,9 @@ class _PageSettingsState extends State<PageSettings> {
           suffixIcon: usernameController.text.isEmpty
               ? Container(width: 0)
               : IconButton(
-                  icon: Icon(Icons.close),
-                  onPressed: () => usernameController.clear(),
-                ),
+            icon: Icon(Icons.close),
+            onPressed: () => usernameController.clear(),
+          ),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(15.0),
           ),
@@ -234,10 +311,12 @@ class _PageSettingsState extends State<PageSettings> {
       ));
 
   Widget buildPasscode() => Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 5.0),
-        child: TextField(
-          controller: passcodeController,
-          onChanged: (value) => {setState(() => this._passcode = value), passcodeController.text = value},
+    padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 5.0),
+    child: TextField(
+      controller: passcodeController,
+          // -- Here is the problem line. There is a 'feedback' effect from the stored value
+          // TODO: Create behaviour same as username TextField. The value does not have to be monitored continually.
+          //onChanged: (value) => {setState(() => this._passcode = value), passcodeController.text = value},
           decoration: InputDecoration(
             hintText: 'Enter a passcode number',
             prefixIcon: Icon(Icons.lock),
@@ -249,10 +328,10 @@ class _PageSettingsState extends State<PageSettings> {
             ),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(15.0),
-            ),
-          ),
-          obscureText: isPasscodeVisible,
-          keyboardType: TextInputType.number,
         ),
-      );
+      ),
+      obscureText: isPasscodeVisible,
+      keyboardType: TextInputType.number,
+    ),
+  );
 }

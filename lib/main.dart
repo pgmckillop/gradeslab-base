@@ -13,21 +13,39 @@ import './pages/page_settings.dart';
 import './pages/page_switchboard.dart';
 import './pages/page_target.dart';
 import './pages/page_testbed.dart';
+import './pages/page_info.dart';
+import './pages/page_about.dart';
 
+// Data models
 import './models/unit_grade.dart';
+import './models/flags.dart';
 
+// Get storage controllers
 import './controllers/status_controller.dart';
 import './controllers/user_controller.dart';
+
+// Data managers
+import './utils/default_data.dart';
+import 'package:flutter/services.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   // -- Initialize storage components
   await Hive.initFlutter();
-
+  // -- Register the Hive adapters
   Hive.registerAdapter(UnitGradeAdapter());
+  Hive.registerAdapter(FlagsAdapter());
+  // -- initialise the boxes
   await Hive.openBox<UnitGrade>('gradesBox');
+  await Hive.openBox<Flags>('flagsBox');
 
   await GetStorage.init();
+
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
+
   runApp(MyApp());
 }
 
@@ -43,7 +61,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    setDataDefaults();
     return GetMaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
         primaryColor: Colors.blue,
@@ -88,8 +108,32 @@ class MyApp extends StatelessWidget {
           name: '/testbed',
           page: () => PageTestbed(),
         ),
+        GetPage(
+          name: '/info',
+          page: () => PageInfo(),
+        ),
+        GetPage(
+          name: '/about',
+          page: () => PageAbout(),
+        ),
       ],
       home: PageLogin(),
     );
+  }
+
+  void setDataDefaults() {
+    bool firstUse = false;
+
+    firstUse = statusController.status.toString() == 'unregistered';
+    DefaultData defaultDataManager = DefaultData();
+
+    if (firstUse) {
+      print('Currently unregistered');
+      // -- set data defaults here
+      defaultDataManager.setDefaultUserData();
+      defaultDataManager.setDefaultGradesData();
+    } else {
+      print('Currently registered');
+    }
   }
 }

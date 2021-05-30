@@ -1,7 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="uk.pgmckillop.grades_lab_hive_getx">
-   <application
-        android:label="grades_lab_hive_getx"
+    <uses-permission android:name="android.permission.INTERNET" />
+    <application
+        android:label="GradesLab"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
