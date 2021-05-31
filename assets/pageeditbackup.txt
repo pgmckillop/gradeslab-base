@@ -21,29 +21,22 @@ class _PageEditGradeState extends State<PageEditGrade> {
   UnitGrade gradeToEdit = Get.arguments;
 
   // -- local data variables
-  String _ac1;
-  String _ac2;
-  String _ac3;
-  String _ac4;
-  String _ac5;
-
-  //String _ac1 = 'PW Working at Pass' ?? '';
-  // String _ac2 = 'PW Working at Pass' ?? '';
-  // String _ac3 = 'PW Working at Pass' ?? '';
-  // String _ac4 = 'PW Working at Pass' ?? '';
-  // String _ac5 = 'PW Working at Pass' ?? '';
+  String _ac1 = 'PW Working at Pass' ?? '';
+  String _ac2 = 'PW Working at Pass' ?? '';
+  String _ac3 = 'PW Working at Pass' ?? '';
+  String _ac4 = 'PW Working at Pass' ?? '';
+  String _ac5 = 'PW Working at Pass' ?? '';
 
   @override
   void initState() {
     // TODO: implement initState
-    //super.initState();
-    // -- these will populate the current values to the dropdowns
-    _ac1 = gradeToEdit.ac1grade;
-    _ac2 = gradeToEdit.ac2grade;
-    _ac3 = gradeToEdit.ac3grade;
-    _ac4 = gradeToEdit.ac4grade;
-    _ac5 = gradeToEdit.ac5grade;
     super.initState();
+    // -- these will populate the current values to the dropdowns
+    // _ac1 = gradeToEdit.ac1grade;
+    // _ac2 = gradeToEdit.ac2grade;
+    // _ac3 = gradeToEdit.ac3grade;
+    // _ac4 = gradeToEdit.ac4grade;
+    // _ac5 = gradeToEdit.ac5grade;
   }
 
   @override
@@ -100,15 +93,6 @@ class _PageEditGradeState extends State<PageEditGrade> {
             letterSpacing: 1.0,
           ),
         ),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.queue_sharp),
-            color: Colors.blue,
-            onPressed: () {
-              print('AC1 is: ${gradeToEdit.ac1grade}');
-            },
-          ),
-        ],
       ),
       body: SingleChildScrollView(
         child: Center(

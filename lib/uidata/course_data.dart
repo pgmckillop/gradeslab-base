@@ -12,6 +12,7 @@ const List<String> ucasBands540 = ['32', '48', '64', '80', '96', '104', '112'];
 
 const List<String> criteriaGradesFull = [
   'NG No Grade',
+  'PD Pass Default',
   'PW Working at Pass',
   'PF Pass final awarded',
   'MW Working at Merit',
