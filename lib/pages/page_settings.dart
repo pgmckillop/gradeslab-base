@@ -250,42 +250,42 @@ class _PageSettingsState extends State<PageSettings> {
   }
 
   Widget buildCourseDropdown() => Container(
-    child: DropdownWrapper(
-      acLabel: 'Course',
-      flexValue1: 2,
-      flexValueChild: 5,
-      wrapperChild: DropdownControl(
-        hintText: 'Choose your course',
-        valueSetter: _chosenCourse,
-        items: getCourseDropdownItems(),
-        onChange: (newValue) {
-          setState(() {
-            this._chosenCourse = newValue;
-          });
-        },
-      ),
-    ),
-  );
+        child: DropdownWrapper(
+          acLabel: 'Course',
+          flexValue1: 2,
+          flexValueChild: 5,
+          wrapperChild: DropdownControl(
+            hintText: 'Choose your course',
+            valueSetter: _chosenCourse,
+            items: getCourseDropdownItems(),
+            onChange: (newValue) {
+              setState(() {
+                this._chosenCourse = newValue;
+              });
+            },
+          ),
+        ),
+      );
 
   // -- custom controls
 
   Widget buildProfileDropdown() => Container(
-    child: DropdownWrapper(
-      acLabel: 'Target',
-      flexValue1: 2,
-      flexValueChild: 5,
-      wrapperChild: DropdownControl(
-        hintText: 'Choose your target profile',
-        valueSetter: _chosenProfile,
-        items: getProfileDropdownItems(),
-        onChange: (newValue) {
-          setState(() {
-            this._chosenProfile = newValue;
-          });
-        },
-      ),
-    ),
-  );
+        child: DropdownWrapper(
+          acLabel: 'Target',
+          flexValue1: 2,
+          flexValueChild: 5,
+          wrapperChild: DropdownControl(
+            hintText: 'Choose your target profile',
+            valueSetter: _chosenProfile,
+            items: getProfileDropdownItems(),
+            onChange: (newValue) {
+              setState(() {
+                this._chosenProfile = newValue;
+              });
+            },
+          ),
+        ),
+      );
 
   Widget buildUsernameTextField() => Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 5.0),
@@ -299,9 +299,9 @@ class _PageSettingsState extends State<PageSettings> {
           suffixIcon: usernameController.text.isEmpty
               ? Container(width: 0)
               : IconButton(
-            icon: Icon(Icons.close),
-            onPressed: () => usernameController.clear(),
-          ),
+                  icon: Icon(Icons.close),
+                  onPressed: () => usernameController.clear(),
+                ),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(15.0),
           ),
@@ -311,9 +311,9 @@ class _PageSettingsState extends State<PageSettings> {
       ));
 
   Widget buildPasscode() => Padding(
-    padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 5.0),
-    child: TextField(
-      controller: passcodeController,
+        padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 5.0),
+        child: TextField(
+          controller: passcodeController,
           // -- Here is the problem line. There is a 'feedback' effect from the stored value
           // TODO: Create behaviour same as username TextField. The value does not have to be monitored continually.
           //onChanged: (value) => {setState(() => this._passcode = value), passcodeController.text = value},
@@ -328,10 +328,10 @@ class _PageSettingsState extends State<PageSettings> {
             ),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(15.0),
+            ),
+          ),
+          obscureText: isPasscodeVisible,
+          keyboardType: TextInputType.number,
         ),
-      ),
-      obscureText: isPasscodeVisible,
-      keyboardType: TextInputType.number,
-    ),
-  );
+      );
 }
