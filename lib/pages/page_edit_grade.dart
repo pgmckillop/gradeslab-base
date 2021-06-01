@@ -100,15 +100,15 @@ class _PageEditGradeState extends State<PageEditGrade> {
             letterSpacing: 1.0,
           ),
         ),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.queue_sharp),
-            color: Colors.blue,
-            onPressed: () {
-              print('AC1 is: ${gradeToEdit.ac1grade}');
-            },
-          ),
-        ],
+        // actions: [
+        //   IconButton(
+        //     icon: Icon(Icons.queue_sharp),
+        //     color: Colors.blue,
+        //     onPressed: () {
+        //       print('AC1 is: ${gradeToEdit.ac1grade}');
+        //     },
+        //   ),
+        // ],
       ),
       body: SingleChildScrollView(
         child: Center(

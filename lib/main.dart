@@ -15,6 +15,7 @@ import './pages/page_target.dart';
 import './pages/page_testbed.dart';
 import './pages/page_info.dart';
 import './pages/page_about.dart';
+import './pages/page_explanation.dart';
 
 // Data models
 import './models/unit_grade.dart';
@@ -115,6 +116,10 @@ class MyApp extends StatelessWidget {
         GetPage(
           name: '/about',
           page: () => PageAbout(),
+        ),
+        GetPage(
+          name: '/explanation',
+          page: () => PageExplanation(),
         ),
       ],
       home: PageLogin(),
