@@ -62,6 +62,17 @@ class _PageTargetState extends State<PageTarget> {
             letterSpacing: 1.0,
           ),
         ),
+        actions: [
+          IconButton(
+            icon: const Icon(
+              Icons.add_to_home_screen,
+              color: Colors.blue,
+            ),
+            onPressed: () {
+              Get.toNamed('/explanation');
+            },
+          ),
+        ],
       ),
       body: Container(
         child: Center(

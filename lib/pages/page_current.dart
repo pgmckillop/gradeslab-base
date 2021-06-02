@@ -38,17 +38,17 @@ class PageCurrent extends StatelessWidget {
           ),
         ),
         // TODO: Remove link to PageTestbed when appropriate
-        actions: [
-          // IconButton(
-          //   icon: const Icon(
-          //     Icons.add_to_home_screen,
-          //     color: Colors.blue,
-          //   ),
-          //   onPressed: () {
-          //     Get.toNamed('/testbed');
-          //   },
-          // ),
-        ],
+        // actions: [
+        //   IconButton(
+        //     icon: const Icon(
+        //       Icons.add_to_home_screen,
+        //       color: Colors.blue,
+        //     ),
+        //     onPressed: () {
+        //       Get.toNamed('/explanation');
+        //     },
+        //   ),
+        // ],
       ),
       body: ValueListenableBuilder<Box<UnitGrade>>(
         valueListenable: Boxes.getGrades().listenable(),
