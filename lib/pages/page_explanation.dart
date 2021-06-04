@@ -111,15 +111,15 @@ class _PageExplanationState extends State<PageExplanation> {
       );
 
   Widget buildWhatDoesItMean() => RichText(
-    text: TextSpan(
-      text: 'So what does that mean?',
-      style: TextStyle(
-        color: Colors.blue,
-        fontSize: 18.0,
-        fontWeight: FontWeight.bold,
-      ),
-    ),
-  );
+        text: TextSpan(
+          text: 'So what does that mean?',
+          style: TextStyle(
+            color: Colors.blue,
+            fontSize: 18.0,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      );
 
   Widget buildBrilliantExplanation(int difference) => Container(
         child: Padding(
@@ -151,7 +151,7 @@ class _PageExplanationState extends State<PageExplanation> {
               ),
               Text(
                 'The Course Handbook outlines all the course points values of the Pass and Merit '
-                    'levels for the units of the course.',
+                'levels for the units of the course.',
                 style: TextStyle(
                   fontSize: 16.0,
                 ),

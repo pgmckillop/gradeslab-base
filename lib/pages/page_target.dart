@@ -21,9 +21,6 @@ class _PageTargetState extends State<PageTarget> {
   String _ucas;
   String _storedProfile;
 
-  final String _canMeetTitle = 'Brilliant';
-  final String _cannotMeetTitle = 'Not so good';
-
   var storage = GetStorage();
   User _user = User();
   UserManager userManager = UserManager();
@@ -133,6 +130,8 @@ class _PageTargetState extends State<PageTarget> {
                     int gap = target - available;
 
                     if (available >= target) {
+                      // TODO: Debug print
+                      print('Can meet');
                       targetState.status = 'can_meet';
                       targetState.pointsDifference = difference;
                       Get.defaultDialog(
@@ -154,6 +153,8 @@ class _PageTargetState extends State<PageTarget> {
                     } else {
                       targetState.status = 'cannot_meet';
                       targetState.pointsDifference = gap.abs();
+                      // TODO: Debug print
+                      print('Cannot meet the grade');
 
                       Get.defaultDialog(
                         title: 'Not so good!',
@@ -252,6 +253,7 @@ class _PageTargetState extends State<PageTarget> {
               setState(() {
                 this._profile = newValue;
                 this._ucas = profile1080ToUcas(newValue);
+                //this.targetState = Get.arguments();
               });
             },
           ),
