@@ -67,17 +67,17 @@ class _PageTargetState extends State<PageTarget> {
             letterSpacing: 1.0,
           ),
         ),
-        actions: [
-          IconButton(
-            icon: const Icon(
-              Icons.add_to_home_screen,
-              color: Colors.blue,
-            ),
-            onPressed: () {
-              Get.toNamed('/explanation');
-            },
-          ),
-        ],
+        // actions: [
+        //   IconButton(
+        //     icon: const Icon(
+        //       Icons.add_to_home_screen,
+        //       color: Colors.blue,
+        //     ),
+        //     onPressed: () {
+        //       Get.toNamed('/explanation');
+        //     },
+        //   ),
+        // ],
       ),
       body: Container(
         child: Center(
@@ -132,26 +132,47 @@ class _PageTargetState extends State<PageTarget> {
                     int difference = available - target;
                     int gap = target - available;
 
-                    targetState.pointsDifference = gap;
-
                     if (available >= target) {
                       targetState.status = 'can_meet';
-                      Get.snackbar(
-                        _canMeetTitle,
-                        'You can get there and have an excess of $difference points',
-                        backgroundColor: Colors.green,
-                        colorText: Colors.black,
-                        snackPosition: SnackPosition.BOTTOM,
+                      targetState.pointsDifference = difference;
+                      Get.defaultDialog(
+                        title: 'Brilliant',
+                        backgroundColor: Colors.lightGreen,
+                        confirmTextColor: Colors.white,
+                        content: Text('You can get there and have an excess of $difference points'),
+                        textCancel: 'OK',
+                        textConfirm: 'Learn more',
+                        barrierDismissible: true,
+                        onCancel: () {},
+                        onConfirm: () {
+                          Get.toNamed(
+                            '/explanation',
+                            arguments: targetState,
+                          );
+                        },
                       );
                     } else {
                       targetState.status = 'cannot_meet';
-                      Get.snackbar(
-                        _cannotMeetTitle,
-                        'You cannot get there because you are short $gap points',
-                        backgroundColor: Colors.amber,
-                        colorText: Colors.black,
-                        snackPosition: SnackPosition.BOTTOM,
+                      targetState.pointsDifference = gap.abs();
+
+                      Get.defaultDialog(
+                        title: 'Not so good!',
+                        backgroundColor: Colors.amberAccent,
+                        confirmTextColor: Colors.white,
+                        content:
+                            Text('You cannot reach the grade. You are short by ${targetState.pointsDifference} points'),
+                        textCancel: 'OK',
+                        textConfirm: 'Learn more',
+                        barrierDismissible: true,
+                        onCancel: () {},
+                        onConfirm: () {
+                          Get.toNamed(
+                            '/explanation',
+                            arguments: targetState,
+                          );
+                        },
                       );
+                      Navigator.of(context).pop();
                     }
                   },
                   child: Container(

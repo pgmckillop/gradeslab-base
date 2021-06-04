@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:grades_lab_hive_getx/utils/explanation_messages.dart';
+import '../models/target_state.dart';
+import 'package:get/get.dart';
 //import '../utils/explanation_messages.dart';
 
 class PageExplanation extends StatefulWidget {
@@ -9,6 +12,8 @@ class PageExplanation extends StatefulWidget {
 }
 
 class _PageExplanationState extends State<PageExplanation> {
+  TargetState passedState = Get.arguments;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,19 +50,38 @@ class _PageExplanationState extends State<PageExplanation> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Container(
-              child: Image(
-                height: MediaQuery.of(context).size.height / 6.0,
-                width: double.infinity,
-                fit: BoxFit.contain,
-                image: AssetImage('assets/images/teacher640.jpg'),
-              ),
-            ),
+            passedState.status == 'can_meet'
+                ? Container(
+                    child: Image(
+                      height: MediaQuery.of(context).size.height / 6.0,
+                      width: double.infinity,
+                      fit: BoxFit.contain,
+                      image: AssetImage('assets/images/teacher640.jpg'),
+                    ),
+                  )
+                : Container(
+                    child: Image(
+                      height: MediaQuery.of(context).size.height / 6.0,
+                      width: double.infinity,
+                      fit: BoxFit.contain,
+                      image: AssetImage('assets/images/disappointed640.jpg'),
+                    ),
+                  ),
+            // Container(
+            //   child: Image(
+            //     height: MediaQuery.of(context).size.height / 6.0,
+            //     width: double.infinity,
+            //     fit: BoxFit.contain,
+            //     image: AssetImage('assets/images/teacher640.jpg'),
+            //   ),
+            // ),
             SizedBox(
               height: 20.0,
             ),
-            Text('this is the explanation page'),
-            buildBrilliantHeader(),
+            passedState.status == 'can_meet'
+                ? buildBrilliantHeader(passedState.pointsDifference)
+                : buildNotSoGoodHeader(passedState.pointsDifference),
+
             SizedBox(
               height: 10.0,
             ),
@@ -65,17 +89,19 @@ class _PageExplanationState extends State<PageExplanation> {
             SizedBox(
               height: 10.0,
             ),
-            buildBrilliantExplanation(),
+            passedState.status == 'can_meet'
+                ? buildBrilliantExplanation(passedState.pointsDifference)
+                : buildNotSoGoodExplanation(passedState.pointsDifference),
           ],
         ),
       ),
     );
   }
 
-  Widget buildBrilliantHeader() => RichText(
+  Widget buildBrilliantHeader(int difference) => RichText(
         textAlign: TextAlign.center,
         text: TextSpan(
-          text: 'You can get to the target and you have xx points to spare',
+          text: 'You can get to the target and you have $difference points to spare',
           style: TextStyle(
             color: Colors.black,
             fontSize: 20.0,
@@ -85,17 +111,17 @@ class _PageExplanationState extends State<PageExplanation> {
       );
 
   Widget buildWhatDoesItMean() => RichText(
-        text: TextSpan(
-          text: 'So what does that mean?',
-          style: TextStyle(
-            color: Colors.blue,
-            fontSize: 18.0,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      );
+    text: TextSpan(
+      text: 'So what does that mean?',
+      style: TextStyle(
+        color: Colors.blue,
+        fontSize: 18.0,
+        fontWeight: FontWeight.bold,
+      ),
+    ),
+  );
 
-  Widget buildBrilliantExplanation() => Container(
+  Widget buildBrilliantExplanation(int difference) => Container(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
@@ -112,7 +138,7 @@ class _PageExplanationState extends State<PageExplanation> {
                 height: 5.0,
               ),
               Text(
-                'Because you have xx points to spare, '
+                'Because you have $difference points to spare, '
                 'you don\'t have to get a Distinction in everything. '
                 'You can \'use up\' those points to reduce the grades in those criteria still to be marked as final.',
                 style: TextStyle(
@@ -125,7 +151,7 @@ class _PageExplanationState extends State<PageExplanation> {
               ),
               Text(
                 'The Course Handbook outlines all the course points values of the Pass and Merit '
-                'levels for the units of the course.',
+                    'levels for the units of the course.',
                 style: TextStyle(
                   fontSize: 16.0,
                 ),
