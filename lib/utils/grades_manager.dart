@@ -25,10 +25,10 @@ class GradesManager {
   }
 
   // -- for persisting a known UnitGrade
-  Future addPopulatedGrade(UnitGrade grade) {
-    final box = Boxes.getGrades();
-    box.put(grade.unitId.toString().trim(), grade);
-  }
+  // Future addPopulatedGrade(UnitGrade grade) {
+  //   final box = Boxes.getGrades();
+  //   box.put(grade.unitId.toString().trim(), grade);
+  // }
 
   void deleteUnitGrade(UnitGrade grade) {
     final box = Boxes.getGrades();

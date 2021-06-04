@@ -96,7 +96,6 @@ class _PageLoginState extends State<PageLogin> {
                           snackPosition: SnackPosition.BOTTOM,
                         );
                       }
-                      ;
                     },
                     child: Container(
                       margin: EdgeInsets.symmetric(horizontal: 60.0),

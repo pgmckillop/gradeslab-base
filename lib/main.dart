@@ -52,11 +52,12 @@ void main() async {
 
 class MyApp extends StatelessWidget {
   // Initialise the controllers
-  StatusController statusController = Get.put(
+  // TODO: Monitor these two final statements. remove if required
+  final StatusController statusController = Get.put(
     StatusController(),
   );
 
-  UserDataController userDataController = Get.put(
+  final UserDataController userDataController = Get.put(
     UserDataController(),
   );
 

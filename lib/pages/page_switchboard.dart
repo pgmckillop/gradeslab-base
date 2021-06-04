@@ -5,12 +5,21 @@ import '../widgets/curve_clipper.dart';
 import '../utils/user_manager.dart';
 import '../utils/url_manager.dart';
 
-class PageSwitchboard extends StatelessWidget {
+class PageSwitchboard extends StatefulWidget {
+  @override
+  _PageSwitchboardState createState() => _PageSwitchboardState();
+}
+
+class _PageSwitchboardState extends State<PageSwitchboard> {
   var userManager = UserManager();
+
   var urlManager = UrlManager();
+
   var courseHomepage =
       'https://qualifications.pearson.com/en/qualifications/btec-nationals/btec-nat-creative-media-practice.html';
+
   var collegeHomepage = 'http://iwcollege.ac.uk/';
+
   var currentUsername = '';
 
   @override

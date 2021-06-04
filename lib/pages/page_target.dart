@@ -9,6 +9,7 @@ import '../utils/user_manager.dart';
 import '../utils/target_validator.dart';
 
 import '../models/user.dart';
+import '../models/target_state.dart';
 
 class PageTarget extends StatefulWidget {
   @override
@@ -20,10 +21,14 @@ class _PageTargetState extends State<PageTarget> {
   String _ucas;
   String _storedProfile;
 
+  final String _canMeetTitle = 'Brilliant';
+  final String _cannotMeetTitle = 'Not so good';
+
   var storage = GetStorage();
   User _user = User();
   UserManager userManager = UserManager();
   TargetValidator targetValidator = TargetValidator();
+  TargetState targetState = TargetState();
 
   @override
   void initState() {
@@ -127,17 +132,21 @@ class _PageTargetState extends State<PageTarget> {
                     int difference = available - target;
                     int gap = target - available;
 
+                    targetState.pointsDifference = gap;
+
                     if (available >= target) {
+                      targetState.status = 'can_meet';
                       Get.snackbar(
-                        'Brilliant!',
+                        _canMeetTitle,
                         'You can get there and have an excess of $difference points',
                         backgroundColor: Colors.green,
                         colorText: Colors.black,
                         snackPosition: SnackPosition.BOTTOM,
                       );
                     } else {
+                      targetState.status = 'cannot_meet';
                       Get.snackbar(
-                        'Not so good!',
+                        _cannotMeetTitle,
                         'You cannot get there because you are short $gap points',
                         backgroundColor: Colors.amber,
                         colorText: Colors.black,

@@ -3,10 +3,10 @@ description: Grades Lab application
 
 publish_to: 'none'
 
-version: 0.5.1+2
+version: 0.5.2+2
 
 environment:
-  sdk: ">=2.9.0 <3.0.0"
+  sdk: ">=2.09.0 <3.0.0"
 
 dependencies:
   flutter:
