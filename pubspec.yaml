@@ -3,7 +3,7 @@ description: Grades Lab application
 
 publish_to: 'none'
 
-version: 0.6.0+1
+version: 0.6.0+2
 
 environment:
   sdk: ">=2.09.0 <3.0.0"

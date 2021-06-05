@@ -128,53 +128,46 @@ class _PageTargetState extends State<PageTarget> {
                     int target = targetValidator.getTargetPoints(_profile);
                     int difference = available - target;
                     int gap = target - available;
+                    gap = gap.abs();
 
-                    if (available >= target) {
-                      // TODO: Debug print
-                      print('Can meet');
+                    String dialogTitle;
+                    String dialogContent;
+                    Color dialogBackgroundColor;
+
+                    bool canMeet = available >= target;
+
+                    if (canMeet) {
+                      dialogTitle = 'Brilliant!';
+                      dialogContent =
+                          'You can get there and could have an excess of $difference points for the selected profile';
                       targetState.status = 'can_meet';
                       targetState.pointsDifference = difference;
-                      Get.defaultDialog(
-                        title: 'Brilliant',
-                        backgroundColor: Colors.lightGreen,
-                        confirmTextColor: Colors.white,
-                        content: Text('You can get there and have an excess of $difference points'),
-                        textCancel: 'OK',
-                        textConfirm: 'Learn more',
-                        barrierDismissible: true,
-                        onCancel: () {},
-                        onConfirm: () {
-                          Get.toNamed(
-                            '/explanation',
-                            arguments: targetState,
-                          );
-                        },
-                      );
+                      dialogBackgroundColor = Colors.lightGreen;
                     } else {
+                      dialogTitle = 'Not so good!';
+                      dialogContent =
+                          'You cannot get to the selected profile from the current position. Your points shortage is $gap';
                       targetState.status = 'cannot_meet';
-                      targetState.pointsDifference = gap.abs();
-                      // TODO: Debug print
-                      print('Cannot meet the grade');
-
-                      Get.defaultDialog(
-                        title: 'Not so good!',
-                        backgroundColor: Colors.amberAccent,
-                        confirmTextColor: Colors.white,
-                        content:
-                            Text('You cannot reach the grade. You are short by ${targetState.pointsDifference} points'),
-                        textCancel: 'OK',
-                        textConfirm: 'Learn more',
-                        barrierDismissible: true,
-                        onCancel: () {},
-                        onConfirm: () {
-                          Get.toNamed(
-                            '/explanation',
-                            arguments: targetState,
-                          );
-                        },
-                      );
-                      Navigator.of(context).pop();
+                      targetState.pointsDifference = gap;
+                      dialogBackgroundColor = Colors.amberAccent;
                     }
+
+                    Get.defaultDialog(
+                      title: dialogTitle,
+                      content: Text(dialogContent),
+                      backgroundColor: dialogBackgroundColor,
+                      confirmTextColor: Colors.white,
+                      textCancel: 'OK',
+                      textConfirm: 'Learn more',
+                      barrierDismissible: true,
+                      onCancel: () {},
+                      onConfirm: () {
+                        Get.toNamed(
+                          '/explanation',
+                          arguments: targetState,
+                        );
+                      },
+                    );
                   },
                   child: Container(
                     margin: EdgeInsets.symmetric(horizontal: 60.0),
