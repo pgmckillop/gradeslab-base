@@ -3,3 +3,5 @@ This is a notes area to try to formalise my lists of actions.
 210531
 TODO: Clone the current App from gradeslab_base to a new application and open with VS Code.
 
+Trying Git Link from MAC
+
