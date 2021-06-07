@@ -18,7 +18,6 @@ class _PageAboutState extends State<PageAbout> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _initPackageInfo();
   }

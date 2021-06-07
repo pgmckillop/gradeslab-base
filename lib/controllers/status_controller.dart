@@ -9,10 +9,7 @@ class StatusController extends GetxController {
   @override
   void onInit() {
     status.value = storage.read('registered') ?? 'unregistered';
-    // TODO : Remove debug print method
-    print(
-      status.value.toString(),
-    );
+
     super.onInit();
   }
 

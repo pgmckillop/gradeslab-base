@@ -200,8 +200,6 @@ class _PageTargetState extends State<PageTarget> {
                 ),
                 child: GestureDetector(
                   onTap: () {
-                    // TODO: Remove debug print
-                    //print('set target clicked');
                     storage.write('target', _profile);
                     Get.toNamed('/switchboard');
                   },

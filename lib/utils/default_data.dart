@@ -34,8 +34,5 @@ class DefaultData {
     gradesManager.addGrade('B1', 'B1 Personal Progression', pd, pd, pd, pd, pd);
 
     gradesManager.addGrade('B2', 'B2 Industry Response', pd, pd, pd, pd, pd);
-
-    // TODO: Debug confirmation message
-    print('Default grades data stored');
   }
 }

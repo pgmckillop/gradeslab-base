@@ -1,4 +1,3 @@
-// TODO: Dropdown Trailing edit icon
 import '../models/unit_grade.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -37,18 +36,6 @@ class PageCurrent extends StatelessWidget {
             letterSpacing: 1.0,
           ),
         ),
-        // TODO: Remove link to PageTestbed when appropriate
-        // actions: [
-        //   IconButton(
-        //     icon: const Icon(
-        //       Icons.add_to_home_screen,
-        //       color: Colors.blue,
-        //     ),
-        //     onPressed: () {
-        //       Get.toNamed('/explanation');
-        //     },
-        //   ),
-        // ],
       ),
       body: ValueListenableBuilder<Box<UnitGrade>>(
         valueListenable: Boxes.getGrades().listenable(),
@@ -161,8 +148,6 @@ class PageCurrent extends StatelessWidget {
     final gradeTitle = unitGrade.unitName;
     final gradesString = unitGrade.gradeInfoString();
     final gradePoints = unitGrade.totalUnitGradePoints().toString();
-    // TODO: Remove debug message
-    // print('Built the grade ${unitGrade.unitId.toString()}');
 
     return Card(
       color: Colors.lightBlue,
@@ -206,16 +191,7 @@ class PageCurrent extends StatelessWidget {
     return IconButton(
         icon: Icon(Icons.edit),
         onPressed: () {
-          // TODO: Remove debug message
-          //print('The UnitGrade Id is: ${unitGrade.unitId}');
-          //unitGrade != null ? print('We found the unitGrade object') : print('We have not got the unitGrade object');
           Get.toNamed('/edit', arguments: unitGrade);
-
-          //
-          //
-          // TODO: Remove debug messages
-          //print(unitGrade.unitId);
-          //Get.toNamed('/edit', arguments: unitGrade);
         });
   }
 
@@ -233,7 +209,7 @@ class PageCurrent extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          // TODO: Extract Container to widget with paramweter for Text value
+          // TODO: Extract Container to widget with parameter for Text value
           Container(
             padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
             decoration: BoxDecoration(

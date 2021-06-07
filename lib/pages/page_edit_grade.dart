@@ -35,8 +35,6 @@ class _PageEditGradeState extends State<PageEditGrade> {
 
   @override
   void initState() {
-    // TODO: implement initState
-    //super.initState();
     // -- these will populate the current values to the dropdowns
     _ac1 = gradeToEdit.ac1grade;
     _ac2 = gradeToEdit.ac2grade;
@@ -70,10 +68,6 @@ class _PageEditGradeState extends State<PageEditGrade> {
 
     final box = Boxes.getGrades();
     UnitGrade gradeToWrite = UnitGrade();
-    // TODO: Remove Debug messages
-    //print('Passed grade from object is ${gradeToEdit.unitId}');
-    //print('Passed ac1 from variable is $_ac1');
-    //
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,

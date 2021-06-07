@@ -314,9 +314,6 @@ class _PageSettingsState extends State<PageSettings> {
         padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 5.0),
         child: TextField(
           controller: passcodeController,
-          // -- Here is the problem line. There is a 'feedback' effect from the stored value
-          // TODO: Create behaviour same as username TextField. The value does not have to be monitored continually.
-          //onChanged: (value) => {setState(() => this._passcode = value), passcodeController.text = value},
           decoration: InputDecoration(
             hintText: 'Enter a passcode number',
             prefixIcon: Icon(Icons.lock),

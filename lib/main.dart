@@ -52,7 +52,7 @@ void main() async {
 
 class MyApp extends StatelessWidget {
   // Initialise the controllers
-  // TODO: Monitor these two final statements. remove if required
+  // Monitor these two final statements. remove if required
   final StatusController statusController = Get.put(
     StatusController(),
   );
