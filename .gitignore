@@ -8,6 +8,8 @@
 .buildlog/
 .history
 .svn/
+*.jks
+
 
 # IntelliJ related
 *.iml
@@ -36,6 +38,8 @@ lib/generated_plugin_registrant.dart
 
 # Symbolication related
 app.*.symbols
+
+
 
 # Obfuscation related
 app.*.map.json
