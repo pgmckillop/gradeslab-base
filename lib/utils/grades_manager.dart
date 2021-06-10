@@ -24,12 +24,6 @@ class GradesManager {
     box.put(id, unitGrade);
   }
 
-  // -- for persisting a known UnitGrade
-  // Future addPopulatedGrade(UnitGrade grade) {
-  //   final box = Boxes.getGrades();
-  //   box.put(grade.unitId.toString().trim(), grade);
-  // }
-
   void deleteUnitGrade(UnitGrade grade) {
     final box = Boxes.getGrades();
     box.delete(grade.unitId);
