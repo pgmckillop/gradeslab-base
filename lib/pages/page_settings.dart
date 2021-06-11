@@ -27,7 +27,7 @@ class _PageSettingsState extends State<PageSettings> {
 
   String _chosenCourse;
   String _chosenProfile;
-  String _username = '';
+  String _username;
 
   //String _passcode = '';
 

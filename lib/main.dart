@@ -12,7 +12,6 @@ import './pages/page_login.dart';
 import './pages/page_settings.dart';
 import './pages/page_switchboard.dart';
 import './pages/page_target.dart';
-import './pages/page_testbed.dart';
 import './pages/page_info.dart';
 import './pages/page_about.dart';
 import './pages/page_explanation.dart';
@@ -105,10 +104,6 @@ class MyApp extends StatelessWidget {
         GetPage(
           name: '/target',
           page: () => PageTarget(),
-        ),
-        GetPage(
-          name: '/testbed',
-          page: () => PageTestbed(),
         ),
         GetPage(
           name: '/info',

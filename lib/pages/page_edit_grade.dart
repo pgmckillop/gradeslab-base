@@ -27,12 +27,6 @@ class _PageEditGradeState extends State<PageEditGrade> {
   String _ac4;
   String _ac5;
 
-  //String _ac1 = 'PW Working at Pass' ?? '';
-  // String _ac2 = 'PW Working at Pass' ?? '';
-  // String _ac3 = 'PW Working at Pass' ?? '';
-  // String _ac4 = 'PW Working at Pass' ?? '';
-  // String _ac5 = 'PW Working at Pass' ?? '';
-
   @override
   void initState() {
     // -- these will populate the current values to the dropdowns

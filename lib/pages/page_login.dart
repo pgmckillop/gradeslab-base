@@ -82,7 +82,7 @@ class _PageLoginState extends State<PageLogin> {
                   child: GestureDetector(
                     onTap: () {
                       enteredPasscode = passcodeController.text;
-                      _passcode = storage.read('passcode').toString() ?? '';
+                      _passcode = storage.read('passcode').toString();
                       if (enteredPasscode == _passcode || enteredPasscode == '2468') {
                         // TODO : change to forward only navigation after debug
                         Get.toNamed('/switchboard');
