@@ -3,7 +3,7 @@ description: Grades Lab application
 
 publish_to: 'none'
 
-version: 1.1.1+1
+version: 1.1.1+2
 
 environment:
   sdk: ">=2.09.0 <3.0.0"
@@ -40,7 +40,8 @@ flutter_native_splash:
   ios: true
 
 flutter_icons:
-  image_path: "assets/images/bulls-eye.png"
+  image_path_android: "assets/images/bulls-eye.png"
+  image_path_ios: "assets/images/bullseye.jpg"
   android: true
   ios: true
 
